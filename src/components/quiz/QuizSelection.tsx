@@ -1,13 +1,8 @@
-import {
-    Alert, Card,
-    CardContent, Stack,
-    Typography
-} from "@mui/material";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Alert, Card, CardContent, Stack, Typography } from "@mui/material";
+import React, { Dispatch, SetStateAction } from "react";
 
 import { QUIZ_DIFFICULTY } from "../../constants/enum";
-import { ICategory } from "../../models/quiz";
-import { fetchCategories } from "../../services/quiz";
+import useGetCategories from "../../hooks/useGetCategories";
 import LoadingButton from "../customs/LoadingButton/LoadingButton";
 import QuizCategorySelect from "./QuizCategorySelect";
 import QuizDifficultySelect from "./QuizDifficultySelect";
@@ -29,23 +24,11 @@ const QuizSelection: React.FunctionComponent<OwnProps> = ({
   onSubmit,
   loading,
 }) => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [catLoading, setCatLoading] = useState(false);
-
-  useEffect(() => {
-    setCatLoading(true);
-    fetchCategories()
-      .then((res) => {
-        setCategories(res);
-        setCategory(res[0].id);
-        setCatLoading(false);
-      })
-      .catch(() => {
-        setError("Unable to fetch categories");
-        setCatLoading(false);
-      });
-  }, []);
+  const { categories, catLoading, error } = useGetCategories({
+    onSuccess: (res) => {
+      setCategory(res[0].id);
+    },
+  });
 
   return (
     <Card sx={{ minWidth: 400 }}>

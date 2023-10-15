@@ -39,12 +39,15 @@ const QuizLandingPage: React.FunctionComponent = () => {
     setScore((prev) => prev + score);
     const newIndex = currentQuestionIndex + 1;
     setCurrentQuestionIndex(newIndex);
+
+    // once index reaches to last questions, finish the quiz;
     if (newIndex === QUESTIONS_COUNTS) {
       setState(QUIZ_STATE.FINISHED);
     }
   };
 
   const onRetake = () => {
+    // reset the values
     setState(QUIZ_STATE.NOT_STARTED);
     setScore(0);
     setCurrentQuestionIndex(0);

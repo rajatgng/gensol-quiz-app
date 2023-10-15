@@ -93,7 +93,11 @@ const QuizLandingPage: React.FunctionComponent = () => {
 
         {state === QUIZ_STATE.FINISHED && (
           <Stack spacing={2}>
-            <QuizFinishCard score={score} onRestart={onRetake} />
+            <QuizFinishCard
+              score={score}
+              onRestart={onRetake}
+              responses={responses}
+            />
             <Divider />
             <QuizResponseSummary questions={questions} responses={responses} />
           </Stack>

@@ -32,7 +32,10 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
   };
 
   const onNextHandler = () => {
-    onNext(submitted && response && response === data.answer ? 1 : 0, response);
+    onNext(
+      submitted && response && response === data.answer ? 1 : 0,
+      submitted ? response : undefined
+    );
     setSubmitted(false);
     setResponse("");
     setNoAnswered(false);

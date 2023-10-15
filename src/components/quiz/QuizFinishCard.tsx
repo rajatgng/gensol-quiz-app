@@ -13,7 +13,7 @@ const QuizFinishCard: React.FunctionComponent<OwnProps> = ({
   onRestart,
 }) => {
   return (
-    <Card sx={{ minWidth: 600 }}>
+    <Card>
       <CardContent>
         <Stack spacing={1}>
           <Typography fontSize={16} fontWeight={500}>

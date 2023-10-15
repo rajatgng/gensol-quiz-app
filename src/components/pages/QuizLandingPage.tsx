@@ -70,7 +70,7 @@ const QuizLandingPage: React.FunctionComponent = () => {
         value={percentageCompleted(currentQuestionIndex)}
         sx={{ height: 8 }}
       />
-      <Box display="flex" justifyContent="center" mt={4}>
+      <Box display="flex" justifyContent="center" mt={4} p={2}>
         {state === QUIZ_STATE.NOT_STARTED && (
           <QuizSelection
             category={category}

@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 import { MAX_ALLOWED_SECONDS } from "../../constants/constant";
@@ -58,15 +58,11 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
             size="small"
             variant="contained"
             onClick={onResponseSubmit}
-            disabled={submitted || notAnswered}
+            disabled={submitted || notAnswered || !response}
           >
             Submit
           </Button>
-          <Button
-            size="small"
-            disabled={!submitted && !notAnswered}
-            onClick={onNextHandler}
-          >
+          <Button size="small" onClick={onNextHandler}>
             Next
           </Button>
         </Stack>
@@ -76,6 +72,10 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
           onComplete={() => !submitted && setNoAnswered(true)}
         />
       </Stack>
+      <Typography fontSize={12} color="text.secondary" mt={1}>
+        Note: Your response will be counted as an answer upon clicking the
+        'SUBMIT' button only.
+      </Typography>
     </QuestionContainer>
   );
 };

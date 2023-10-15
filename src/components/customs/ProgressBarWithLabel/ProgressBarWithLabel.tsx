@@ -1,4 +1,9 @@
-import { LinearProgressProps, Box, LinearProgress, Typography } from "@mui/material";
+import {
+  LinearProgressProps,
+  Box,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 
 export default function ProgressBarWithLabel(
   props: LinearProgressProps & { value: number }

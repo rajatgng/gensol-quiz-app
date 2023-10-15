@@ -1,31 +1,31 @@
 export interface ICategory {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 export interface IQuestion {
-    question: string;
-    answer: string;
-    options: string[];
+  question: string;
+  answer: string;
+  options: string[];
 }
 
 export interface ICategoryAPIResponse {
-    trivia_categories: ICategory[]
+  trivia_categories: ICategory[];
 }
 
 export interface IQuestionsAPIResponse {
-    response_code: number;
-    results: {
-        category: string;
-        correct_answer: string;
-        difficulty: string;
-        type: string;
-        question: string;
-        incorrect_answers: string[];
-    }[]
+  response_code: number;
+  results: {
+    category: string;
+    correct_answer: string;
+    difficulty: string;
+    type: string;
+    question: string;
+    incorrect_answers: string[];
+  }[];
 }
 
 export interface IUserResponse {
-    score: number;
-    response?: string;
+  score: number;
+  response?: string;
 }

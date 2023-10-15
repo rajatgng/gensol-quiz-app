@@ -16,7 +16,7 @@ export function useGetCategories({
     const storedCategories = storedCategoriesStr
       ? JSON.parse(storedCategoriesStr)
       : [];
-      // check if stored in local storage
+    // check if stored in local storage
     if (storedCategories.length) {
       setCategories(storedCategories);
       onSuccess?.(storedCategories);

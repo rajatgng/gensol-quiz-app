@@ -35,7 +35,7 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
     onNext(submitted && response && response === data.answer ? 1 : 0, response);
     setSubmitted(false);
     setResponse("");
-    setNoAnswered(false)
+    setNoAnswered(false);
   };
 
   return (

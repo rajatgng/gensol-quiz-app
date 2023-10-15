@@ -1,13 +1,12 @@
-
-/** 
+/**
  * Shuffles the elements of an array
  * @param array - array to shuffle
  * @returns the shuffled array
-*/
+ */
 export const shuffleArray = (array: string[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}; 
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};

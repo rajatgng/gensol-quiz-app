@@ -5,6 +5,7 @@ import { openTdbBaseUrl, QUESTIONS_COUNTS } from "../constants/constant";
 import { QUIZ_DIFFICULTY } from "../constants/enum";
 import { ICategoryAPIResponse, IQuestion, IQuestionsAPIResponse } from "../models/quiz";
 import { shuffleArray } from "../utils/arrayUtils";
+import { decodeHtmlCharCodes } from "../utils/stringUtils";
 
 const openTdbAPI = axios.create({
     baseURL: openTdbBaseUrl,
@@ -40,8 +41,8 @@ export const fetchQuestions = async (categoryId?: string, difficulty?: QUIZ_DIFF
 
 
     return res.data.results.map(({ question, correct_answer, incorrect_answers }) => ({
-        question: question,
-        answer: correct_answer,
-        options: shuffleArray([...incorrect_answers, correct_answer])
+        question: decodeHtmlCharCodes(question),
+        answer: decodeHtmlCharCodes(correct_answer),
+        options: shuffleArray([...incorrect_answers, correct_answer]).map(decodeHtmlCharCodes)
     }))
 }

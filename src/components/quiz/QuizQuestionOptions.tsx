@@ -6,7 +6,7 @@ import React from "react";
 
 interface OwnProps {
   response: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   answer: string;
   submitted: boolean;
   options: string[];

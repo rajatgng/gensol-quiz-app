@@ -1,14 +1,15 @@
-import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-import { QUESTIONS_COUNTS } from "../../constants/constant";
+import { MAX_ALLOWED_SECONDS } from "../../constants/constant";
 import { IQuestion } from "../../models/quiz";
-import { decodeHtmlCharCodes } from "../../utils/stringUtils";
+import Timer from "../Timer/Timer";
+import QuestionContainer from "./QuestionContainer";
 import QuizQuestionOptions from "./QuizQuestionOptions";
 
 interface OwnProps {
   data: IQuestion;
-  onNext: (score: number) => void;
+  onNext: (score: number, response?: string) => void;
   questionNumber: number;
 }
 
@@ -19,9 +20,10 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
 }) => {
   const [response, setResponse] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [notAnswered, setNoAnswered] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (submitted) return; // don't submit again
+    if (submitted || notAnswered) return; // don't submit again
     setResponse((event.target as HTMLInputElement).value);
   };
 
@@ -30,46 +32,51 @@ const QuizQuestionCard: React.FunctionComponent<OwnProps> = ({
   };
 
   const onNextHandler = () => {
-    onNext(submitted && response && response === data.answer ? 1 : 0);
+    onNext(submitted && response && response === data.answer ? 1 : 0, response);
     setSubmitted(false);
     setResponse("");
+    setNoAnswered(false)
   };
 
   return (
-    <Card sx={{ minWidth: 600 }}>
-      <CardContent>
-        <Stack spacing={0.5}>
-          <Typography fontSize={13} fontWeight={500}>
-            Question {questionNumber}/{QUESTIONS_COUNTS}
-          </Typography>
-          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-            {decodeHtmlCharCodes(data.question)}
-          </Typography>
-        </Stack>
+    <QuestionContainer question={data.question} questionNumber={questionNumber}>
+      <QuizQuestionOptions
+        options={data.options}
+        response={response}
+        submitted={submitted}
+        onChange={handleChange}
+        answer={data.answer}
+      />
 
-        <QuizQuestionOptions
-          options={data.options}
-          response={response}
-          submitted={submitted}
-          onChange={handleChange}
-          answer={data.answer}
-        />
-
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-end"
+      >
         <Stack direction="row" spacing={2} mt={4}>
           <Button
             size="small"
             variant="contained"
             onClick={onResponseSubmit}
-            disabled={submitted}
+            disabled={submitted || notAnswered}
           >
             Submit
           </Button>
-          <Button size="small" disabled={!submitted} onClick={onNextHandler}>
+          <Button
+            size="small"
+            disabled={!submitted && !notAnswered}
+            onClick={onNextHandler}
+          >
             Next
           </Button>
         </Stack>
-      </CardContent>
-    </Card>
+        <Timer
+          initialSeconds={MAX_ALLOWED_SECONDS}
+          key={data.question}
+          onComplete={() => !submitted && setNoAnswered(true)}
+        />
+      </Stack>
+    </QuestionContainer>
   );
 };
 

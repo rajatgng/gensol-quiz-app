@@ -24,3 +24,8 @@ export interface IQuestionsAPIResponse {
         incorrect_answers: string[];
     }[]
 }
+
+export interface IUserResponse {
+    score: number;
+    response?: string;
+}

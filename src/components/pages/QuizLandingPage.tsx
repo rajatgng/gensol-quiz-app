@@ -51,7 +51,7 @@ const QuizLandingPage: React.FunctionComponent = () => {
     setState(QUIZ_STATE.NOT_STARTED);
     setScore(0);
     setCurrentQuestionIndex(0);
-    setCategory("");
+    setCategory("9");
     setDifficulty(QUIZ_DIFFICULTY.EASY);
   };
 

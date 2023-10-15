@@ -19,6 +19,7 @@ export function useGetCategories({
       // check if stored in local storage
     if (storedCategories.length) {
       setCategories(storedCategories);
+      onSuccess?.(storedCategories);
     } else {
       setCatLoading(true);
       fetchCategories()
